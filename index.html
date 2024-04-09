@@ -1,0 +1,32 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Länkgrej</title>
+</head>
+<body>
+    <script>
+        //Make a get request to get list.txt and choose a random link (one link per line) to redirect to
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "list.txt", true);
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                var links = xhr.responseText.split("\n");
+                var randomLink = links[Math.floor(Math.random() * links.length)];
+                window.location.href = randomLink;
+                redirect(randomLink);
+            }
+        }
+        xhr.send();
+
+        function redirect() {
+            //show a link to the user to redirect to
+            var a = document.createElement("a");
+            var linkText = document.createTextNode("Click here to redirect");
+            a.appendChild(linkText);
+            a.title = "Click here to redirect";
+            a.href = randomLink;
+        }
+    </script>
+</body>
+</html>
